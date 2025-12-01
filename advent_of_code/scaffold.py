@@ -36,21 +36,21 @@ def scaffold_day(year: int, day: int) -> None:
     (day_dir / "__init__.py").write_text("# Day {day} solution\n")
 
     # Create solution.py template
-    solution_template = f'''"""
-Advent of Code {year} - Day {day}
-
-Template solution file. Replace this with your actual solution.
-"""
+    solution_template = f'''"""Advent of Code {year} - Day {day}."""
 
 
 def solve(input_data: str) -> tuple[int, int]:
     """
     Solve the Advent of Code challenge.
 
-    Args:
-        input_data: The input data as a string
+    Parameters
+    ----------
+    input_data: str
+        The input data as a string
 
-    Returns:
+    Returns
+    -------
+    tuple[int, int]
         A tuple of (part1_result, part2_result)
     """
     lines = input_data.strip().split("\\n")
