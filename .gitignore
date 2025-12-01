@@ -1,4 +1,5 @@
 .venv/
 **/pypi-token.txt
 **/build_id.txt
+**/__pycache__/**
 !.devcontainer/devcontainer.json

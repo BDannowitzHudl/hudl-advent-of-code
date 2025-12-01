@@ -38,6 +38,11 @@ def scaffold_day(year: int, day: int) -> None:
     # Create solution.py template
     solution_template = f'''"""Advent of Code {year} - Day {day}."""
 
+import logging
+
+
+logger = logging.getLogger(__name__)
+
 
 def solve(input_data: str) -> tuple[int, int]:
     """
@@ -53,7 +58,7 @@ def solve(input_data: str) -> tuple[int, int]:
     tuple[int, int]
         A tuple of (part1_result, part2_result)
     """
-    lines = input_data.strip().split("\\n")
+    lines = input_data.strip().split("\\n")  # noqa: F841
 
     # Part 1: Your solution here
     part1_result = 0
@@ -63,21 +68,6 @@ def solve(input_data: str) -> tuple[int, int]:
 
     return part1_result, part2_result
 
-
-if __name__ == "__main__":
-    # Allow running directly for quick testing
-    import sys
-    from pathlib import Path
-
-    test_input_file = Path(__file__).parent / "test_input.txt"
-    if test_input_file.exists():
-        with test_input_file.open() as f:
-            test_data = f.read().rstrip("\\n")
-        part1, part2 = solve(test_data)
-        print(f"Part 1: {{part1}}")
-        print(f"Part 2: {{part2}}")
-    else:
-        print("No test_input.txt found", file=sys.stderr)
 '''
     (day_dir / "solution.py").write_text(solution_template)
 
