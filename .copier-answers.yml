@@ -1,0 +1,10 @@
+# Changes here will be overwritten by Copier
+_commit: 2.3.1-25-g4e0624b
+_src_path: git+ssh://git@github.com/hudl/py-marvel
+image: python
+image_tag: '3.12'
+name: advent-of-code
+package_name: advent_of_code
+subdirectory: .
+type: library
+

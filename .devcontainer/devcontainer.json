@@ -1,0 +1,30 @@
+{
+  "name": "advent-of-code",
+  "image": "690616407375.dkr.ecr.us-east-1.amazonaws.com/py-marvel/devcontainers/images/python:3.12",
+  "hostRequirements": {
+    "gpu": "optional"
+  },
+  "runArgs": [
+    "--ipc=host",
+    "--privileged"
+  ],
+  "containerEnv": {
+    "BASH_ENV": "${containerWorkspaceFolder}/.devcontainer/bash_env.sh"
+  },
+  "initializeCommand": ".devcontainer/devcontainer_init.sh",
+  "postCreateCommand": ".devcontainer/devcontainer_postcreate.sh",
+  "postStartCommand": ".devcontainer/devcontainer_poststart.sh",
+  "postAttachCommand": ".devcontainer/devcontainer_postattach.sh",
+  "mounts": [
+    "source=${localEnv:HOME}/.aws/config,target=/root/.aws/config,type=bind,consistency=cached,ro=1",
+    "source=${localEnv:HOME}/.aws/sso,target=/root/.aws/sso,type=bind,consistency=cached",
+    "source=${localEnv:HOME}/.polyaxon/,target=/root/.polyaxon/,type=bind"
+  ],
+  // Project specific customizations, on top of defaults from the base image and default features.
+  "customizations": {
+    "vscode": {
+      "extensions": [],
+      "settings": {}
+    }
+  }
+}

@@ -1,0 +1,20 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      # The PIP_EXTRA_INDEX_URL is set in our build config and overwrites the config file
+      # created by .pymarvel/build_tokens.sh.
+      # Once PIP_EXTRA_INDEX_URL is not set this can also go.
+      - export PIP_EXTRA_INDEX_URL=""
+      - bash -c "source .pymarvel/build_tokens.sh"
+      - curl -LsSf https://astral.sh/uv/install.sh | sh
+      - export PATH="/root/.local/bin:$PATH"
+      - bash -c "source .pymarvel/build_tokens.sh uv-apply && uv sync"
+
+  build:
+    commands:
+      - uv run pytest .
+      - uv run mypy .
+      - uv run ruff check .
+      - push-to-pypi-pyenv

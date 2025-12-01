@@ -1,0 +1,86 @@
+lint.select = [
+    "ARG",
+    "PTH",
+    "PD",
+    "PGH",
+    "PL",
+    "TRY",
+    "NPY",
+    "RUF",
+    "B",
+    "A",
+    "COM",
+    "C4",
+    "DTZ",
+    "T10",
+    "EM",
+    "EXE",
+    "ISC",
+    "ICN",
+    "G",
+    "INP",
+    "F",
+    "E",
+    "W",
+    "C90",
+    "I",
+    "N",
+    "D",
+    "UP",
+    "YTT",
+    "ANN",
+    "S",
+    "BLE",
+    "FBT",
+    "PIE",
+    "T20",
+    "PYI",
+    "PT",
+    "Q",
+    "RSE",
+    "RET",
+    "SLF",
+    "SIM",
+    "TID",
+    "TCH",
+]
+
+lint.ignore = [
+    "COM812", # Missing trailing comma
+    "D100",   # Missing docstring in public module
+    "D104",   # Missing docstring in public package
+    "FBT001", # Boolean-typed positional argument in function definition
+    "FBT002", # Boolean default positional argument in function definition
+    "G004",   # Logging statement uses f-string
+    "TRY003", # Avoid specifying long messages outside the exception class
+]
+
+show-fixes = true
+output-format = "full"
+
+lint.unfixable = ["F401"] # Prevents auto-removal of unused imports
+
+[lint.isort]
+lines-after-imports = 2
+
+[lint.per-file-ignores]
+"__init__.py" = ["F401"] # Ignore unused imports in __init__.py
+"*_test.py" = [
+    "D103",    # Undocumented public function definitions
+    "INP001",  # Packages that are missing an __init__.py file
+    "PLR0913", # Function definitions that include too many arguments
+    "S101",    # Uses of the assert keyword
+]
+"test_*.py" = [
+    "D103",    # Undocumented public function definitions
+    "INP001",  # Packages that are missing an __init__.py file
+    "PLR0913", # Function definitions that include too many arguments
+    "S101",    # Uses of the assert keyword
+]
+
+[lint.pydocstyle]
+convention = "numpy"
+property-decorators = ["classproperty", "abc.abstractproperty"]
+
+[lint.flake8-self]
+ignore-names = ["_target_"]

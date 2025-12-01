@@ -1,0 +1,4 @@
+.venv/
+**/pypi-token.txt
+**/build_id.txt
+!.devcontainer/devcontainer.json
