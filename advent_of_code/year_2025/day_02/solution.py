@@ -7,33 +7,6 @@ from math import ceil, floor
 logger = logging.getLogger(__name__)
 
 
-def get_prime_factors(num: int) -> list[int]:
-    """Get the prime factorization of a given number."""
-    factors = []
-    divisor = 2
-
-    # Handle the case of 2 as a factor
-    while num % divisor == 0:
-        factors.append(divisor)
-        num //= divisor
-
-    # Check for odd divisors starting from 3
-    divisor = 3
-    while (
-        divisor * divisor <= num
-    ):  # Optimization: only check up to the square root of num
-        while num % divisor == 0:
-            factors.append(divisor)
-            num //= divisor
-        divisor += 2  # Increment by 2 to check only odd numbers
-
-    # If num is still greater than 1, it must be a prime factor itself
-    if num > 1:
-        factors.append(num)
-
-    return factors
-
-
 class IDRange:
     """A class encapsulating the ranges for Day 2."""
 
