@@ -66,9 +66,7 @@ def run_solution(year: int, day: int, test_mode: bool = False) -> None:
     logger.info("-" * 60)
 
     try:
-        part1_result, part2_result = module.solve(input_data)
-        logger.info("Part 1: %s", part1_result)
-        logger.info("Part 2: %s", part2_result)
+        module.solve(input_data)
     except Exception:
         logger.exception("Error running solution")
         sys.exit(1)

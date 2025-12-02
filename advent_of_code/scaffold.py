@@ -39,6 +39,7 @@ def scaffold_day(year: int, day: int) -> None:
     solution_template = f'''"""Advent of Code {year} - Day {day}."""
 
 import logging
+import time
 
 
 logger = logging.getLogger(__name__)
@@ -61,10 +62,16 @@ def solve(input_data: str) -> tuple[int, int]:
     lines = input_data.strip().split("\\n")  # noqa: F841
 
     # Part 1: Your solution here
+    start_time = time.perf_counter()
     part1_result = 0
+    part1_time = time.perf_counter() - start_time
+    logger.info("Part 1: %s (%.4fs)", part1_result, part1_time)
 
     # Part 2: Your solution here
+    start_time = time.perf_counter()
     part2_result = 0
+    part2_time = time.perf_counter() - start_time
+    logger.info("Part 2: %s (%.4fs)", part2_result, part2_time)
 
     return part1_result, part2_result
 

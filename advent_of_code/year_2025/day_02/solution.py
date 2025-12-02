@@ -1,6 +1,7 @@
 """Advent of Code 2025 - Day 2."""
 
 import logging
+import time
 from math import ceil, floor
 
 
@@ -124,22 +125,28 @@ def solve(input_data: str) -> tuple[int, int]:
         A tuple of (part1_result, part2_result)
     """
     id_ranges_strs = input_data.strip().split(",")
-
     id_ranges = [IDRange(idr) for idr in id_ranges_strs]
 
+    # Part 1
+    start_time = time.perf_counter()
     sum_invalid_ids = 0
-    sum_invalid_ids_part2 = 0
     for idr in id_ranges:
         invalid_id_list = idr.invalid_ids()
         sum_invalid_ids += sum(invalid_id_list)
 
+    part1_result = sum_invalid_ids
+    part1_time = time.perf_counter() - start_time
+    logger.info("Part 1: %s (%.4fs)", part1_result, part1_time)
+
+    # Part 2
+    start_time = time.perf_counter()
+    sum_invalid_ids_part2 = 0
+    for idr in id_ranges:
         invalid_id_list_part2 = idr.invalid_ids_part2()
         sum_invalid_ids_part2 += sum(invalid_id_list_part2)
 
-    # Part 1: Your solution here
-    part1_result = sum_invalid_ids
-
-    # Part 2: Your solution here
     part2_result = sum_invalid_ids_part2
+    part2_time = time.perf_counter() - start_time
+    logger.info("Part 2: %s (%.4fs)", part2_result, part2_time)
 
     return part1_result, part2_result

@@ -1,6 +1,7 @@
 """Advent of Code 2025 - Day 1."""
 
 import logging
+import time
 
 
 logger = logging.getLogger(__name__)
@@ -86,16 +87,25 @@ def solve(input_data: str) -> tuple[int, int]:
     -------
         A tuple of (part1_result, part2_result)
     """
+    lines = input_data.strip().split("\n")
+
+    # Part 1
+    start_time = time.perf_counter()
     position = 50
     part1_zeros = 0
 
-    lines = input_data.strip().split("\n")
     for line in lines:
         direction, distance = line[0], int(line[1:])
         position = turn(position, direction, distance)
         if position == 0:
             part1_zeros += 1
 
+    part1_result = part1_zeros
+    part1_time = time.perf_counter() - start_time
+    logger.info("Part 1: %s (%.4fs)", part1_result, part1_time)
+
+    # Part 2
+    start_time = time.perf_counter()
     position = 50
     part2_zeros = 0
 
@@ -104,7 +114,8 @@ def solve(input_data: str) -> tuple[int, int]:
         position, zeros = turn_part2(position, direction, distance)
         part2_zeros += zeros
 
-    part1_result = part1_zeros
     part2_result = part2_zeros
+    part2_time = time.perf_counter() - start_time
+    logger.info("Part 2: %s (%.4fs)", part2_result, part2_time)
 
     return part1_result, part2_result

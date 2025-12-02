@@ -3,4 +3,5 @@
 **/build_id.txt
 **/__pycache__/**
 *.pyc
+*.cpython-312.pyc
 !.devcontainer/devcontainer.json
