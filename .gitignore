@@ -2,4 +2,5 @@
 **/pypi-token.txt
 **/build_id.txt
 **/__pycache__/**
+*.pyc
 !.devcontainer/devcontainer.json
