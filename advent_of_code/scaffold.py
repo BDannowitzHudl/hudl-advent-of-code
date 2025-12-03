@@ -38,22 +38,24 @@ def fetch_input_data(year: int, day: int) -> str:
     try:
         session_token = os.getenv("AOC_SESSION_TOKEN")
         if not session_token:
-            raise RuntimeError("AOC_SESSION_TOKEN environment variable not set.")
+            msg = "AOC_SESSION_TOKEN environment variable not set."
+            raise RuntimeError(msg)  # noqa: TRY301
 
         url = f"https://adventofcode.com/{year}/day/{day}/input"
         response = requests.get(url, cookies={"session": session_token}, timeout=10)
 
         if not response.ok:
-            raise RuntimeError(
-                f"Failed to fetch input data from {url}: {response.status_code} {response.reason}"
+            msg = (
+                "Failed to fetch input data from "
+                f"{url}: {response.status_code} {response.reason}"
             )
+            raise RuntimeError(msg)  # noqa: TRY301
 
-        logger.info("Successfully loaded input data for AoC %d Day %d", year, day)
-        return response.text
+        return response.text  # noqa: TRY300
 
-    except Exception as e:
-        logger.error("Error fetching input data: %s", e)
-        return ""
+    except Exception as exc:
+        msg = f"Error fetching input data: {exc}"
+        raise RuntimeError(msg) from exc
 
 
 def scaffold_day(year: int, day: int) -> None:
@@ -148,7 +150,10 @@ def solve(input_data: str) -> tuple[int, int]:
     logger.info("  1. Add test input to %s", day_dir / "test_input.txt")
     step = 2
     if not input_data:
-        logger.info("  %d. Set AOC_SESSION_TOKEN in .env file and re-run scaffold to fetch input", step)
+        logger.info(
+            "  %d. Set AOC_SESSION_TOKEN in .env file, re-run scaffold to fetch input",
+            step,
+        )
         step += 1
     logger.info("  %d. Implement your solution in %s", step, day_dir / "solution.py")
     logger.info("  %d. Run with: aoc %d %d --test", step + 1, year, day)
