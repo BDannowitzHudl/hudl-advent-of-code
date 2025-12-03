@@ -83,7 +83,7 @@ class PowerBank:
                 current_bank = current_bank + max_battery
                 remaining_bank = remaining_bank[max_battery_index + 1 :]
                 remaining_batteries -= 1
-                return self._max_joltage(
+                return self._max_bank(
                     current_bank=current_bank,
                     remaining_bank=remaining_bank,
                     remaining_batteries=remaining_batteries,
