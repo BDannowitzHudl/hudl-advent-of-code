@@ -1,2 +1,4 @@
-# Example test input
-# Replace with actual test input from the challenge
+987654321111111
+811111111111119
+234234234234278
+818181911112111
