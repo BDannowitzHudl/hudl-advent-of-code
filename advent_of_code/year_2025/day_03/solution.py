@@ -13,7 +13,6 @@ class PowerBank:
     def __init__(self, bank_str: str) -> None:
         """Initialize the power bank."""
         self.bank_str = bank_str
-        self.bank = [int(digit) for digit in bank_str]
 
     def __repr__(self) -> str:
         """Print out the qualities of the power bank."""
@@ -32,14 +31,14 @@ class PowerBank:
         int
             The maximum joltage possible from the bank.
         """
-        max_bank, _ = self._max_joltage(
+        max_bank, _ = self._max_bank(
             current_bank="",
             remaining_bank=self.bank_str,
             remaining_batteries=num_batteries,
         )
         return int(max_bank)
 
-    def _max_joltage(
+    def _max_bank(
         self, current_bank: str, remaining_bank: str, remaining_batteries: int
     ) -> tuple[str, str]:
         """Recursively get the max power bank consisting of N batteries.
