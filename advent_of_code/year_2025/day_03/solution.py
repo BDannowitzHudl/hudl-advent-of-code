@@ -20,7 +20,18 @@ class PowerBank:
         return f"PowerBank(bank_str={self.bank_str})"
 
     def max_joltage(self, num_batteries: int) -> int:
-        """Get the maximum joltage possible from the bank."""
+        """Get the maximum joltage possible from the bank.
+
+        Parameters
+        ----------
+        num_batteries: int
+            The number of batteries to turn on
+
+        Returns
+        -------
+        int
+            The maximum joltage possible from the bank.
+        """
         max_bank, _ = self._max_joltage(
             current_bank="",
             remaining_bank=self.bank_str,
@@ -31,13 +42,27 @@ class PowerBank:
     def _max_joltage(
         self, current_bank: str, remaining_bank: str, remaining_batteries: int
     ) -> tuple[str, str]:
-        """Get the max joltage from the bank using 12 batteries.
+        """Recursively get the max power bank consisting of N batteries.
 
         The order in the bank must be respected.
+
+        Parameters
+        ----------
+        current_bank: str
+            The current bank of batteries as a single string
+        remaining_bank: str
+            The remaining bank of batteries as a single string
+        remaining_batteries: int
+            The number of batteries still needed
+
+        Returns
+        -------
+        tuple[str, str]
+            A tuple of (the current bank of batteries, the remaining bank of batteries)
         """
         # If no more batteries to collect, then we're done!
         if remaining_batteries == 0:
-            return current_bank, ""
+            return current_bank, remaining_bank
 
         # Need to know the number of remaining batteries
         bank_len = len(remaining_bank)
