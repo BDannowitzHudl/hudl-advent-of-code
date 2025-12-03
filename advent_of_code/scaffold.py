@@ -7,10 +7,53 @@ Creates the directory structure and template files for a new challenge.
 
 import argparse
 import logging
+import os
 from pathlib import Path
+
+import requests
+from dotenv import load_dotenv
 
 
 logger = logging.getLogger(__name__)
+
+# Load environment variables from .env file
+load_dotenv()
+
+
+def fetch_input_data(year: int, day: int) -> str:
+    """Fetch input data from Advent of Code website.
+
+    Parameters
+    ----------
+    year: int
+        The year of the challenge
+    day: int
+        The day of the challenge
+
+    Returns
+    -------
+    str
+        The input data as a string, or empty string if fetch fails
+    """
+    try:
+        session_token = os.getenv("AOC_SESSION_TOKEN")
+        if not session_token:
+            raise RuntimeError("AOC_SESSION_TOKEN environment variable not set.")
+
+        url = f"https://adventofcode.com/{year}/day/{day}/input"
+        response = requests.get(url, cookies={"session": session_token}, timeout=10)
+
+        if not response.ok:
+            raise RuntimeError(
+                f"Failed to fetch input data from {url}: {response.status_code} {response.reason}"
+            )
+
+        logger.info("Successfully loaded input data for AoC %d Day %d", year, day)
+        return response.text
+
+    except Exception as e:
+        logger.error("Error fetching input data: %s", e)
+        return ""
 
 
 def scaffold_day(year: int, day: int) -> None:
@@ -78,13 +121,19 @@ def solve(input_data: str) -> tuple[int, int]:
 '''
     (day_dir / "solution.py").write_text(solution_template)
 
-    # Create empty input files
+    # Create empty test input file
     (day_dir / "test_input.txt").write_text(
         "# Example test input\n# Replace with actual test input from the challenge\n"
     )
-    (day_dir / "input.txt").write_text(
-        "# Challenge input goes here\n# Download from https://adventofcode.com\n"
-    )
+
+    # Fetch and write input.txt
+    input_data = fetch_input_data(year, day)
+    if input_data:
+        (day_dir / "input.txt").write_text(input_data)
+    else:
+        (day_dir / "input.txt").write_text(
+            "# Challenge input goes here\n# Download from https://adventofcode.com\n"
+        )
 
     # Create empty CHALLENGE.md file
     (day_dir / "CHALLENGE.md").write_text("")
@@ -97,9 +146,12 @@ def solve(input_data: str) -> tuple[int, int]:
     logger.info("")
     logger.info("Next steps:")
     logger.info("  1. Add test input to %s", day_dir / "test_input.txt")
-    logger.info("  2. Download challenge input to %s", day_dir / "input.txt")
-    logger.info("  3. Implement your solution in %s", day_dir / "solution.py")
-    logger.info("  4. Run with: aoc %d %d --test", year, day)
+    step = 2
+    if not input_data:
+        logger.info("  %d. Set AOC_SESSION_TOKEN in .env file and re-run scaffold to fetch input", step)
+        step += 1
+    logger.info("  %d. Implement your solution in %s", step, day_dir / "solution.py")
+    logger.info("  %d. Run with: aoc %d %d --test", step + 1, year, day)
 
 
 def main() -> None:

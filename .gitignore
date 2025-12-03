@@ -5,3 +5,4 @@
 *.pyc
 *.cpython-312.pyc
 !.devcontainer/devcontainer.json
+.env
