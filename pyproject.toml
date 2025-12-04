@@ -9,6 +9,8 @@ authors = []
 requires-python = ">=3.12.0"
 dependencies = [
     "ipython>=9.8.0",
+    "matplotlib>=3.10.7",
+    "networkx>=3.6",
     "python-dotenv>=1.0.0",
     "requests>=2.31.0",
     "types-requests>=2.32.4.20250913",
