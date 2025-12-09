@@ -12,7 +12,7 @@ class IDRange:
 
     def __init__(self, range_str: str) -> None:
         range_vals = range_str.split("-")
-        if len(range_vals) != 2:
+        if len(range_vals) != 2:  # noqa: PLR2004
             msg = f"Expected N-N for range. Got {range_str}."
             raise ValueError(msg)
         self.beginning = int(range_vals[0])
@@ -23,6 +23,7 @@ class IDRange:
         return self.beginning <= idx <= self.end
 
     def __len__(self) -> int:
+        """Get the inclusive length of the range."""
         return self.end - self.beginning + 1
 
 
